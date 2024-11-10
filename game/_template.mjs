@@ -4,7 +4,6 @@ const NAME = {
     transitionTo: null,
 
     init: function (...args) {
-
     },
 
     update: function (dt) {
@@ -17,7 +16,6 @@ const NAME = {
 
         }
     }
-
 }
 
 export default NAME;

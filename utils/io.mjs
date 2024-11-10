@@ -62,9 +62,7 @@ const KeyBoardManager = {
     isRotatePressed: () => {
         return readKeyState(KEY_ID.r);
     }
-
 }
-
 
 function calculateStringBounds(str) {
 
@@ -84,7 +82,6 @@ function calculateStringBounds(str) {
             maxLineLength = lenght;
         }
     }
-
     return { max: maxLineLength, min: minLineLength, height, width: maxLineLength }
 }
 
@@ -111,7 +108,6 @@ function printWithOffset(text, row, col) {
     for (let line of lines) {
         output = `${output}${ANSI.CURSOR_RIGHT.repeat(col)}${line}\n`;
     }
-
     print(output);
 }
 

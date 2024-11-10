@@ -6,5 +6,4 @@ const units = {
     destroyer: { size: 2, id: "Destroyer", symbole: "Q" }
 }
 
-
 export default units

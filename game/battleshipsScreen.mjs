@@ -7,7 +7,6 @@ const creteBatleshipScreen = () => {
     let firstPlayerBoard = null;
     let secondPlayerBoard = null;
 
-
     function swapPlayer() {
         currentPlayer *= -1;
         if (currentPlayer == FIRST_PLAYER) {
@@ -24,7 +23,6 @@ const creteBatleshipScreen = () => {
         next: null,
         transitionTo: null,
 
-
         init: function (firstPBoard, secondPBoard) {
             firstPlayerBoard = firstPBoard;
             secondPlayerBoard = secondPBoard;
@@ -38,10 +36,7 @@ const creteBatleshipScreen = () => {
             if (this.isDrawn == false) {
                 this.isDrawn = true;
 
-
                 print("There should be a battleship game here");
-
-
             }
         }
 

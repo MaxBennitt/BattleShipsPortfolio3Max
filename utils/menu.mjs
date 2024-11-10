@@ -5,9 +5,6 @@ import { print, printCenterd } from "../utils/io.mjs";
 let currentActiveMenuItem = 0
 let menuItemCount = 0;
 
-/*
-*/
-
 function createMenu(menuItems) {
     return {
         isDrawn: false,
@@ -51,19 +48,13 @@ function createMenu(menuItems) {
                     } else {
                         title = ` ${menuItem.text} `;
                     }
-
                     output += title + "\n";
-
                 }
-
                 printCenterd(output);
-
             }
         }
 
     }
 }
-
-
 
 export default createMenu;
