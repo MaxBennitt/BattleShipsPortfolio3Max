@@ -1,8 +1,6 @@
 import { GAME_BOARD_DIM, FIRST_PLAYER, SECOND_PLAYER } from "../consts.mjs";
 import { print } from "../utils/io.mjs";
 
-
-
 const creteBatleshipScreen = () => {
 
     let currentPlayer = FIRST_PLAYER;
@@ -20,8 +18,6 @@ const creteBatleshipScreen = () => {
             oponentBoard = firstPlayerBoard;
         }
     }
-
-
 
     return {
         isDrawn: false,

@@ -8,7 +8,6 @@ import { create2DArrayWithFill } from "../utils/array.mjs"
 ANSI.SEA__AND_SHIP = '\x1b[38;5;83;48;5;39m';
 ANSI.SEA = '\x1b[48;5;39m';
 
-
 function createMapLayoutScreen() {
 
     const MapLayout = {
@@ -191,10 +190,6 @@ function createMapLayoutScreen() {
 
             print(output);
         }
-
-
-
-
     }
 
     return MapLayout;

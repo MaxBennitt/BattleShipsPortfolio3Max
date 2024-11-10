@@ -1,5 +1,3 @@
-
-
 const NAME = {
     isDrawn: false,
     next: null,

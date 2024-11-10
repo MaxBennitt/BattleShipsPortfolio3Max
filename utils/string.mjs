@@ -10,7 +10,4 @@ String.prototype.appendToEnd = function (count, char) {
     return appendToEnd(this, count, char)
 }
 
-
-
-
 export default appendToEnd;
