@@ -9,32 +9,62 @@ import createBattleshipScreen from "./game/battleshipsScreen.mjs";
 import { createResolutionChecker } from "./utils/ResolutionChecker.mjs";
 import { getText, setLanguage, getCurrentLanguage } from "./utils/languages.mjs";
 
-const GAME_FPS = 1000 / 60; // The theoretical refresh rate of our game engine
-let currentState = null;    // The current active state in our finite-state machine.
-let gameLoop = null;        // Variable that keeps a reference to the interval id assigned to our game loop 
+const GAME_FPS = 1000 / 60;
+let currentState = null;
+let gameLoop = null;
 let mainMenuScene = null;
 let menuItemCount = 0;
 
-// Support / Utility functions ---------------------------------------------------------------
+const GAME_STATES = {
+    SPLASH_SCREEN: "Splash Screen",
+    MAIN_MENU: "Main Menu",
+    MAP_LAYOUT: "Map Layout",
+    INNBETWEEN: "Innbetween",
+    BATTLESHIP: "Battleship"
+};
+
+const MENU_ITEMS = {
+    START_GAME: "startGame",
+    CHANGE_LANGUAGE: "changeLanguage",
+    EXIT_GAME: "exitGame"
+};
+
+const LANGUAGES = {
+    ENGLISH: "english",
+    NORWEGIAN: "norwegian"
+};
+
+const SCREEN_KEYS = {
+    SHIP_PLACEMENT_PHASE: "shipPlacementPhase",
+    FIRST_PLAYER_READY: "firstPlayerReady",
+    SECOND_PLAYER_READY: "secondPlayerReady",
+    LOOK_AWAY: "lookAway",
+    OTHER_LOOK_AWAY: "otherLookAway"
+};
+
+const LANGUAGE_NAMES = {
+    ENGLISH: "English",
+    NORWEGIAN: "Norsk"
+};
 
 function buildMenu() {
     return [
         {
-            text: () => getText('startGame'),
+            text: () => getText(MENU_ITEMS.START_GAME),
             id: menuItemCount++,
             action: function () {
                 clearScreen();
                 let innbetween = createInnBetweenScreen();
-                innbetween.init(`${getText('shipPlacementPhase')}\nFirst player get ready.\nPlayer two look away`, () => {
+                innbetween.init(`${getText(SCREEN_KEYS.SHIP_PLACEMENT_PHASE)}\n${getText(SCREEN_KEYS.FIRST_PLAYER_READY)}\n${getText(SCREEN_KEYS.LOOK_AWAY)}`, () => {
                     let p1map = createMapLayoutScreen();
                     p1map.init(FIRST_PLAYER, (player1MapLayout) => {
                         let innbetween = createInnBetweenScreen();
-                        innbetween.init(`${getText('shipPlacementPhase')}\nSecond player get ready.\nPlayer one look away`, () => {
+                        innbetween.init(`${getText(SCREEN_KEYS.SHIP_PLACEMENT_PHASE)}\n${getText(SCREEN_KEYS.SECOND_PLAYER_READY)}\n${getText(SCREEN_KEYS.OTHER_LOOK_AWAY)}`, () => {
                             let p2map = createMapLayoutScreen();
                             p2map.init(SECOND_PLAYER, (player2MapLayout) => {
                                 let battleship = createBattleshipScreen();
                                 battleship.init(player1MapLayout.map, player2MapLayout.map);
-                                battleship.mainMenuScene = mainMenuScene;
+                                battleship.mainMenuScene = GAME_STATES.MAIN_MENU;
                                 return battleship;
                             });
                             return p2map;
@@ -44,28 +74,28 @@ function buildMenu() {
                     return p1map;
                 }, 3);
                 currentState.next = innbetween;
-                currentState.transitionTo = "Map layout";
+                currentState.transitionTo = GAME_STATES.MAP_LAYOUT;
             }
         },
         {
-            text: () => getText('changeLanguage'),
+            text: () => getText(MENU_ITEMS.CHANGE_LANGUAGE),
             id: menuItemCount++,
             action: function () {
                 const languageMenu = createMenu([
                     {
-                        text: () => "English",
+                        text: () => LANGUAGE_NAMES.ENGLISH,
                         id: 0,
                         action: function() {
-                            setLanguage('english');
+                            setLanguage(LANGUAGES.ENGLISH);
                             currentState = mainMenuScene;
                             mainMenuScene.isDrawn = false;
                         }
                     },
                     {
-                        text: () => "Norsk",
+                        text: () => LANGUAGE_NAMES.NORWEGIAN,
                         id: 1,
                         action: function() {
-                            setLanguage('norwegian');
+                            setLanguage(LANGUAGES.NORWEGIAN);
                             currentState = mainMenuScene;
                             mainMenuScene.isDrawn = false;
                         }
@@ -75,7 +105,7 @@ function buildMenu() {
             }
         },
         {
-            text: () => getText('exitGame'),
+            text: () => getText(MENU_ITEMS.EXIT_GAME),
             id: menuItemCount++,
             action: function () {
                 print(ANSI.SHOW_CURSOR);
