@@ -42,11 +42,11 @@ function createMenu(menuItems) {
                 for (let index in menuItems) {
                     let menuItem = menuItems[index]
 
-                    let title = menuItem.text;
+                    let title = typeof menuItem.text === 'function' ? menuItem.text() : menuItem.text;
                     if (currentActiveMenuItem == menuItem.id) {
-                        title = `*${menuItem.text}*`;
+                        title = `*${title}*`;
                     } else {
-                        title = ` ${menuItem.text} `;
+                        title = ` ${title} `;
                     }
                     output += title + "\n";
                 }

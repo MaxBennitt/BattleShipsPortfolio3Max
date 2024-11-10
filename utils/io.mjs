@@ -33,7 +33,6 @@ const KEY_STATES = Object.keys(KEY_ID).reduce((prev, cur) => {
     return prev;
 }, {});
 
-
 function readKeyState(key) {
     let value = KEY_STATES[key];
     KEY_STATES[key] = false;

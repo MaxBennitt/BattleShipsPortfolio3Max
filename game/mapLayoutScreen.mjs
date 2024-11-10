@@ -4,6 +4,7 @@ import { print, clearScreen } from "../utils/io.mjs";
 import units from "./units.mjs";
 import KeyBoardManager from "../utils/io.mjs";
 import { create2DArrayWithFill } from "../utils/array.mjs"
+import { getText } from "../utils/languages.mjs";
 
 ANSI.SEA__AND_SHIP = '\x1b[38;5;83;48;5;39m';
 ANSI.SEA = '\x1b[48;5;39m';
@@ -148,7 +149,7 @@ function createMapLayoutScreen() {
         draw: function (dr) {
             if (!this.isDrawn) {
                 clearScreen();
-                print(`${ANSI.TEXT.BOLD}${ANSI.COLOR.YELLOW}Ship Placement Phase\n\n${ANSI.TEXT.BOLD_OFF}${ANSI.RESET}`);
+                print(`${ANSI.TEXT.BOLD}${ANSI.COLOR.YELLOW}${getText('shipPlacementPhase')}:\n\n${ANSI.TEXT.BOLD_OFF}${ANSI.RESET}`);
             }
 
             let output = '  ';
@@ -185,16 +186,16 @@ function createMapLayoutScreen() {
             output += '\n\n';
         
             if (!this.isDrawn) {
-                output += `${ANSI.TEXT.BOLD}${ANSI.COLOR.YELLOW}Controls:${ANSI.TEXT.BOLD_OFF}${ANSI.RESET}\n`;
-                output += 'Arrow keys: Move cursor\n';
-                output += 'R: Rotate ship\n';
-                output += 'Enter: Place ship\n';
+                output += `${ANSI.TEXT.BOLD}${ANSI.COLOR.YELLOW}${getText('controls')}:${ANSI.TEXT.BOLD_OFF}${ANSI.RESET}\n`;
+                output += `${getText('arrowKeys')}\n`;
+                output += `${getText('rotateKey')}\n`;
+                output += `${getText('enterKey')}\n`;
         
-                output += `\n${ANSI.TEXT.BOLD}${ANSI.COLOR.YELLOW}Ships to place:${ANSI.TEXT.BOLD_OFF}${ANSI.RESET}\n`;
+                output += `\n${ANSI.TEXT.BOLD}${ANSI.COLOR.YELLOW}${getText('shipsToPlace')}:${ANSI.TEXT.BOLD_OFF}${ANSI.RESET}\n`;
                 this.ships.forEach((ship, index) => {
                     const status = index < this.currentShipIndex ? '✓' :
                         index === this.currentShipIndex ? '>' : ' ';
-                    output += `${status} ${ship.id} (${ship.size} spaces)\n`;
+                        output += `${status} ${ship.id} (${ship.size} ${getText('spaces')})\n`;
                 });
             }
             print(ANSI.CURSOR_HOME + output);
