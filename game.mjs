@@ -27,13 +27,16 @@ function buildMenu() {
                 let innbetween = createInnBetweenScreen();
                 innbetween.init(`${getText('shipPlacementPhase')}\nFirst player get ready.\nPlayer two look away`, () => {
                     let p1map = createMapLayoutScreen();
-                    p1map.init(FIRST_PLAYER, (player1ShipMap) => {
+                    p1map.init(FIRST_PLAYER, (player1MapLayout) => {
                         let innbetween = createInnBetweenScreen();
                         innbetween.init(`${getText('shipPlacementPhase')}\nSecond player get ready.\nPlayer one look away`, () => {
                             let p2map = createMapLayoutScreen();
-                            p2map.init(SECOND_PLAYER, (player2ShipMap) => {
-                                return createBattleshipScreen(player1ShipMap, player2ShipMap);
-                            })
+                            p2map.init(SECOND_PLAYER, (player2MapLayout) => {
+                                let battleship = createBattleshipScreen();
+                                battleship.init(player1MapLayout.map, player2MapLayout.map);
+                                battleship.mainMenuScene = mainMenuScene;
+                                return battleship;
+                            });
                             return p2map;
                         });
                         return innbetween;
@@ -104,3 +107,5 @@ function update() {
     currentState = ResolutionChecker;
     gameLoop = setInterval(update, GAME_FPS);
 })();
+
+export default buildMenu;

@@ -139,7 +139,7 @@ function createMapLayoutScreen() {
                     if (this.currentShipIndex < this.ships.length) {
                         this.ship = this.ships[this.currentShipIndex];
                     } else {
-                        this.next = this.transitionFn();
+                        this.next = this.transitionFn(this);;
                         this.transitionTo = "next state";
                     }
                 }
